@@ -1,16 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAXSIZE 100
+
 typedef int ElemType;
+
 typedef struct{
-    ElemType data[MAXSIZE];
+    ElemType *data;
     int front;
     int rear;
 }Queue;
 
-void initQueue(Queue *Q){
-    Q->front = 0;
-    Q->rear= 0;
+Queue* initQueue(){
+    Queue *q = (Queue*)malloc(sizeof(Queue));
+    q->data = (ElemType*)malloc(sizeof(ElemType) * MAXSIZE);
+    q->front = 0;
+    q->rear = 0;
+    return q;
 }
 
 int isEmpty(Queue *Q){
@@ -72,19 +78,18 @@ int getHead(Queue *Q, ElemType *e){
 }
 
 int main(){
-    Queue q;
-    initQueue(&q);
+    Queue *q = initQueue();
 
-    equeue(&q, 10);
-    equeue(&q, 20);
-    equeue(&q, 30);
-    equeue(&q, 40);
-    equeue(&q, 50);
+    equeue(q, 10);
+    equeue(q, 20);
+    equeue(q, 30);
+    equeue(q, 40);
+    equeue(q, 50);
     
-    printf("%d\n",dequeue(&q));
-    printf("%d\n",dequeue(&q));
+    printf("%d\n",dequeue(q));
+    printf("%d\n",dequeue(q));
     ElemType e;
-    getHead(&q, &e);
+    getHead(q, &e);
     printf("%d\n",e);
 
     return 0;
